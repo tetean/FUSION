@@ -1,0 +1,24 @@
+Models:
+    ALIGNN:
+        model: "ALIGNN"
+        cutoff: 8.0
+        cutoff_extra: 3.0
+        max_neighbors: 12
+        use_canonize: True
+        batch_size: 128
+        epochs: 300
+        lr: 0.001
+        weight_decay: 0.00001
+        optimizer: "AdamW"
+        scheduler: "onecycle"
+        evidential: "True"
+        coeff: 0.01
+        warmup_steps: 2000
+        model_setting:
+            alignn_layers: 4
+            gcn_layers: 4
+            atom_input_features: 92
+            edge_input_features: 80
+            triplet_input_features: 40
+            embedding_features: 64
+            hidden_features: 256
