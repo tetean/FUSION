@@ -3,7 +3,6 @@ import json
 import os, sys
 from datetime import datetime
 from tqdm import tqdm
-from FUSION import FUSION
 
 
 class EpsilonSearcher:

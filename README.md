@@ -21,8 +21,8 @@ git clone https://github.com/tetean/FUSION.git
 cd FUSION
 ```
 2.  Install dependencies:
-### Some important Dependencies
 
+### Some important Dependencies
 | Package | Description |
 |---------|-------------|
 | **PyTorch** | Deep learning framework |
@@ -40,13 +40,13 @@ cd FUSION
 | **pyyaml** | Configuration management |
 
 
-[//]: # (```bash)
+```bash
 
-[//]: # (conda env create -f environment.yml -n FUSION)
+conda env create -f environment.yml -n FUSION
 
-[//]: # (conda activate FUSION)
+conda activate FUSION
 
-[//]: # (```)
+```
 
 ## Quick Start
 
@@ -58,9 +58,9 @@ from FUSION import FUSION
 fusion = FUSION(
     config_path="config.yml",
     checkpoint_path="surrogate/perovskites/ALIGNN/example.pth.tar",
-    data_path="path/to/data",
+    data_path="./data",
     task="perovskites",
-    epsilon=0.01,
+    epsilon=0.499,
     gamma=0.1,
     Lambda=0,  # 0 for cross-model, 1 for same-model
     cache_dir="./fusion_cache"
@@ -68,7 +68,7 @@ fusion = FUSION(
 
 # Run FUSION pipeline
 results = fusion.run(
-    optimization_method='legacy_greedy',
+    optimization_method='greedy',
     force_recompute=False
 )
 
@@ -82,6 +82,36 @@ print(f"Pruning ratio: {pruning_ratio:.2%}")
 
 ```python
 from EpsilonSearcher import EpsilonSearcher
+from FUSION import FUSION
+
+# Initialize FUSION
+fusion = FUSION(
+    config_path="config.yml",
+    checkpoint_path="surrogate/perovskites/ALIGNN/example.pth.tar",
+    data_path="./data",
+    task="perovskites",
+    epsilon=0.01,
+    gamma=0.1,
+    Lambda=0,  # 0 for cross-model, 1 for same-model
+    cache_dir="./fusion_cache"
+)
+
+# Update SOAP parameters
+fusion.soap_params.update({
+    'r_cut': 5.0,
+    'n_max': 8,
+    'l_max': 6,
+    'sigma': 0.5,
+    'periodic': True,
+    'average': 'off',
+    'sparse': False
+})
+fusion.symprec = 1e-5
+
+# Compute features
+fusion.compute_uncertainties(force_recompute=False)
+fusion.compute_structural_similarity(force_recompute=False)
+fusion.compute_uncertainty_influence(force_recompute=False)
 
 # Find optimal epsilon values for target pruning ratios
 searcher = EpsilonSearcher(fusion)
@@ -96,8 +126,8 @@ json_docs = fusion.generate_json_splits(
     test_size=0.15,
     val_size=0.15,
     random_state=42,
-    optimization_method='legacy_greedy'
-)
+    optimization_method='greedy'
+
 ```
 > It should be noted that the Epsilon Searcher algorithm provides exact solutions for the greedy optimization strategy, where samples are selected strictly in ascending order of influence scores. However, when employing FUSION's advanced optimization methods (dynamic greedy, beam search, or enhanced simulated annealing), the algorithm serves as an approximation tool. For critical applications requiring precise pruning ratios, we recommend using the epsilon searcher as an initial estimation.
 

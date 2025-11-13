@@ -25,7 +25,6 @@ import spglib
 from pathlib import Path
 import warnings
 from sklearn.model_selection import train_test_split
-from utils import timer_and_log
 from EpsilonSearcher import EpsilonSearcher
 
 warnings.filterwarnings('ignore')
@@ -1136,8 +1135,8 @@ class FUSION:
                 - 'fusion_dynamic_greedy': Fast dynamic greedy (recommended for large datasets)
                 - 'fusion_beam_search': Adaptive beam search (best quality/speed trade-off)
                 - 'fusion_enhanced_sa': Enhanced simulated annealing (best quality, slower)
-                - 'legacy_greedy': Original greedy method
-                - 'legacy_sa': Original simulated annealing
+                - 'greedy': Original greedy method
+                - 'sa': Original simulated annealing
             force_recompute (bool): Force recomputation of all steps
             indices (list): Optional list of indices to consider for pruning
             **kwargs: Additional arguments for optimization methods
@@ -1163,9 +1162,9 @@ class FUSION:
             pruning_ratio = self.fusion_adaptive_beam_search(**kwargs)
         elif optimization_method == 'fusion_enhanced_sa':
             pruning_ratio = self.fusion_enhanced_simulated_annealing(**kwargs)
-        elif optimization_method == 'legacy_greedy':
+        elif optimization_method == 'greedy':
             pruning_ratio = self.optimize_pruning_mask(indices=indices)
-        elif optimization_method == 'legacy_sa':
+        elif optimization_method == 'sa':
             pruning_ratio = self.simulated_annealing_optimization(indices=indices, **kwargs)
         else:
             print(f"Warning: Unknown optimization method '{optimization_method}', using fusion_dynamic_greedy")
@@ -1534,7 +1533,7 @@ def main():
 
     # Test different optimization methods
     optimization_methods = [
-        "legacy_greedy",
+        "greedy",
         # 'fusion_dynamic_greedy',  # Fastest, good quality
         # 'fusion_beam_search',  # Best balance of speed/quality
         # 'fusion_enhanced_sa'  # Best quality, slower
