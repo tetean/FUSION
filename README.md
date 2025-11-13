@@ -20,7 +20,7 @@
 git clone https://github.com/tetean/FUSION.git
 cd FUSION
 ```
-2.  Install dependencies
+2.  Install dependencies:
 ### Some important Dependencies
 
 | Package | Description |
@@ -96,7 +96,7 @@ json_docs = fusion.generate_json_splits(
     test_size=0.15,
     val_size=0.15,
     random_state=42,
-    optimization_method='fusion_dynamic_greedy'
+    optimization_method='legacy_greedy'
 )
 ```
 > It should be noted that the Epsilon Searcher algorithm provides exact solutions for the greedy optimization strategy, where samples are selected strictly in ascending order of influence scores. However, when employing FUSION's advanced optimization methods (dynamic greedy, beam search, or enhanced simulated annealing), the algorithm serves as an approximation tool. For critical applications requiring precise pruning ratios, we recommend using the epsilon searcher as an initial estimation.
@@ -116,7 +116,7 @@ data/
 
 ## JSON File Structure
 Each split file (train/val/test) contains multiple "models" representing different pruning levels:
-```json
+```python
 {
   "0": [0, 1, 2, 3, ..., 3334],      // Model 0: Full dataset (no pruning)
   "1": [0, 5, 8, 12, ..., 3320],     // Model 1
