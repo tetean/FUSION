@@ -6,11 +6,15 @@
 
 <h4 align="center">
 
-[![Static Badge](https://img.shields.io/badge/Python-3.9%2B-blue?style=for-the-badge
-)](https://python.org/downloads)
+[![Static Badge](https://img.shields.io/badge/PYTHON-3.9%2B-gray?style=for-the-badge&labelColor=blue)](https://python.org/downloads) 
+&nbsp;&nbsp;&nbsp;&nbsp;
+[![Static Badge](https://img.shields.io/badge/26-AAAI?style=for-the-badge&label=AAAI&labelColor=purple&color=gray)](https://aaai.org/conference/aaai/aaai-26/)
+&nbsp;&nbsp;&nbsp;&nbsp;
+[![Static Badge](https://img.shields.io/badge/PAPER-red?style=for-the-badge&labelColor=blue)]()
 
 </h4>
 
+---
 # FUSION
 
 ## Installation
@@ -86,11 +90,11 @@ from FUSION import FUSION
 fusion = FUSION(
     config_path="config.yml",
     checkpoint_path="surrogate/perovskites/ALIGNN/example.pth.tar",
-    data_path="/data1/tanliqin/uq-ood-mat/data/",
+    data_path="./data",
     task="perovskites",
     epsilon=0.01,
     gamma=0.1,
-    Lambda=0,  # 0 for cross-model, 1 for same-model
+    Lambda=0,
     cache_dir="./fusion_cache"
 )
 
@@ -133,26 +137,40 @@ json_docs = fusion.generate_json_splits(
 ```python
 data/
 └── perovskites/
+    ├── 0.cif
     ├── 1.cif
     ├── 2.cif
     ├── 3.cif
     ├── 4.cif
     ├── 5.cif
     ├── 6.cif
-    └── ...
+    ├── ...
+    └── 18927.cif
+```
+
+Meanwhile, for fast reading and to save storage space, we have provided a preprocessed Perovskites data `pkl` file that is packaged and ready for use by ALIGNN as a demonstration：
+```python
+data/
+└── perovskites/
+    └── alignn_data.pkl
 ```
 
 ## JSON File Structure
 Each split file (train/val/test) contains multiple "models" representing different pruning levels:
 ```python
 {
-  "0": [0, 1, 2, 3, ..., 3334],      // Model 0: Full dataset (no pruning)
-  "1": [0, 5, 8, 12, ..., 3320],     // Model 1
-  "2": [0, 8, 15, 25, ..., 3100],    // Model 2
-  "3": [5, 12, 28, 45, ..., 2800],   // Model 3
-  "4": [8, 25, 50, 88, ..., 2200]    // Model 4
+  "0": [0, 1, 2, 3, ..., 18927],      // Model 0: Full dataset (no pruning)
+  "1": [0, 5, 8, 12, ..., 18927],     // Model 1
+  "2": [0, 8, 15, 25, ..., 16746],    // Model 2
+  "3": [5, 12, 28, 45, ..., 16134],   // Model 3
+  "4": [8, 25, 50, 88, ..., 15312]    // Model 4
 }
 ```
+
+## Poster
+<p align="center">
+    <img src="properties/FUSION-poster.png" alt="FUSION poster" width="800"/>
+</p>
 
 ## Citation
 
@@ -166,3 +184,5 @@ If you use FUSION in your research, please cite:
   year={2026}
 }
 ```
+
+---
