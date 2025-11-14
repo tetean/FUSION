@@ -41,11 +41,9 @@ cd FUSION
 
 
 ```bash
-
 conda env create -f environment.yml -n FUSION
 
 conda activate FUSION
-
 ```
 
 ## Quick Start
@@ -62,7 +60,7 @@ fusion = FUSION(
     task="perovskites",
     epsilon=0.499,
     gamma=0.1,
-    Lambda=0,  # 0 for cross-model, 1 for same-model
+    Lambda=0,
     cache_dir="./fusion_cache"
 )
 
@@ -88,7 +86,7 @@ from FUSION import FUSION
 fusion = FUSION(
     config_path="config.yml",
     checkpoint_path="surrogate/perovskites/ALIGNN/example.pth.tar",
-    data_path="./data",
+    data_path="/data1/tanliqin/uq-ood-mat/data/",
     task="perovskites",
     epsilon=0.01,
     gamma=0.1,
@@ -127,7 +125,7 @@ json_docs = fusion.generate_json_splits(
     val_size=0.15,
     random_state=42,
     optimization_method='greedy'
-
+)
 ```
 > It should be noted that the Epsilon Searcher algorithm provides exact solutions for the greedy optimization strategy, where samples are selected strictly in ascending order of influence scores. However, when employing FUSION's advanced optimization methods (dynamic greedy, beam search, or enhanced simulated annealing), the algorithm serves as an approximation tool. For critical applications requiring precise pruning ratios, we recommend using the epsilon searcher as an initial estimation.
 
