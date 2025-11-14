@@ -31,18 +31,6 @@ warnings.filterwarnings('ignore')
 
 
 class FUSION:
-    """
-    FUSION: Materials-Aware Pruning Strategy for identifying redundant crystal structures
-    in materials datasets while preserving model performance using dynamic value functions and
-    combinatorial optimization techniques.
-
-    FUSION combines:
-    - Dynamic value functions that consider sample relationships
-    - Multi-objective optimization (quality, diversity, coverage)
-    - Adaptive optimization strategies (beam search, enhanced SA)
-    - Context-aware sample selection
-    """
-
     def __init__(self, config_path, checkpoint_path, data_path, task, epsilon=0.1, gamma=0.1, Lambda=1,
                  cache_dir="./fusion_cache"):
         """
@@ -1608,8 +1596,4 @@ def main():
 
 
 if __name__ == "__main__":
-    # Use predefined splits mode for OOD test
-    # main_with_predefined_splits()
-
-    # For generating splits from scratch, uncomment:
     main()
