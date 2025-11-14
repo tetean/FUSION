@@ -8,7 +8,7 @@
 
 [![Static Badge](https://img.shields.io/badge/PYTHON-3.9%2B-gray?style=for-the-badge&labelColor=blue)](https://python.org/downloads) 
 &nbsp;&nbsp;&nbsp;&nbsp;
-[![Static Badge](https://img.shields.io/badge/26-AAAI?style=for-the-badge&label=AAAI&labelColor=purple&color=gray)](https://aaai.org/conference/aaai/aaai-26/)
+[![Static Badge](https://img.shields.io/badge/2026-AAAI?style=for-the-badge&label=AAAI&labelColor=purple&color=gray)](https://aaai.org/conference/aaai/aaai-26/)
 &nbsp;&nbsp;&nbsp;&nbsp;
 [![Static Badge](https://img.shields.io/badge/PAPER-red?style=for-the-badge&labelColor=blue)]()
 
@@ -148,7 +148,7 @@ data/
     └── 18927.cif
 ```
 
-Meanwhile, for fast reading and to save storage space, we have provided a preprocessed Perovskites data `pkl` file that is packaged and ready for use by ALIGNN as a demonstration：
+Meanwhile, for fast reading and to save storage space, we have provided a preprocessed Perovskites data `pkl` file that is packaged and ready for use by ALIGNN as a demonstration:
 ```python
 data/
 └── perovskites/
@@ -156,14 +156,39 @@ data/
 ```
 
 ## JSON File Structure
-Each split file (train/val/test) contains multiple "models" representing different pruning levels:
+
+FUSION generates three JSON files (`train.json`, `val.json`, `test.json`), each containing multiple models with different pruning levels. **Importantly, the test set remains identical across all models to ensure fair evaluation.**
+
+### train.json
 ```python
 {
-  "0": [0, 1, 2, 3, ..., 18927],      // Model 0: Full dataset (no pruning)
-  "1": [0, 5, 8, 12, ..., 18927],     // Model 1
-  "2": [0, 8, 15, 25, ..., 16746],    // Model 2
-  "3": [5, 12, 28, 45, ..., 16134],   // Model 3
-  "4": [8, 25, 50, 88, ..., 15312]    // Model 4
+  "0": [0, 1, 2, 3, 5, 8, 12, 15, ..., 18920],      // Model 0: Full training set
+  "1": [0, 5, 8, 15, 23, 45, ..., 18915],           // Model 1: ~20% pruned
+  "2": [0, 8, 23, 67, 89, ..., 18900],              // Model 2: ~40% pruned
+  "3": [5, 23, 89, 145, ..., 18850],                // Model 3: ~60% pruned
+  "4": [8, 67, 145, 234, ..., 18800]                // Model 4: ~80% pruned
+}
+```
+
+### val.json
+```python
+{
+  "0": [4, 6, 7, 9, 11, 16, 20, ..., 18925],        // Model 0: Full validation set
+  "1": [4, 7, 11, 20, 28, ..., 18922],              // Model 1: ~20% pruned
+  "2": [4, 11, 28, 56, ..., 18918],                 // Model 2: ~40% pruned
+  "3": [7, 28, 78, ..., 18910],                     // Model 3: ~60% pruned
+  "4": [11, 56, 123, ..., 18905]                    // Model 4: ~80% pruned
+}
+```
+
+### test.json
+```python
+{
+  "0": [10, 13, 14, 17, 19, 21, ..., 18927],        // Model 0: Full test set
+  "1": [10, 13, 14, 17, 19, 21, ..., 18927],        // Model 1: IDENTICAL to Model 0
+  "2": [10, 13, 14, 17, 19, 21, ..., 18927],        // Model 2: IDENTICAL to Model 0
+  "3": [10, 13, 14, 17, 19, 21, ..., 18927],        // Model 3: IDENTICAL to Model 0
+  "4": [10, 13, 14, 17, 19, 21, ..., 18927]         // Model 4: IDENTICAL to Model 0
 }
 ```
 
