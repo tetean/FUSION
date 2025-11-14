@@ -19,14 +19,14 @@
 
 ## Installation
 
-1. Clone the repository:
+1. Clone the Repository:
 ```bash
 git clone https://github.com/tetean/FUSION.git
 cd FUSION
 ```
-2.  Install dependencies:
+2.  Install Dependencies:
 
-### Some important Dependencies
+### Some Important Dependencies
 | Package | Description |
 |---------|-------------|
 | **PyTorch** | Deep learning framework |
@@ -46,13 +46,13 @@ cd FUSION
 
 ```bash
 conda env create -f environment.yml -n FUSION
-
 conda activate FUSION
 ```
 
 ## Quick Start
 
 ### Basic Usage
+
 ```python
 from FUSION import FUSION
 
