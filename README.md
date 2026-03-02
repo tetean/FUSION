@@ -205,7 +205,7 @@ If you use FUSION in your research, please cite:
 @inproceedings{wang2026fusion,
   title={FUSION: Dataset Pruning via Fusing Uncertainty with Structural Information for Optimal Neural Training in Crystal Property Prediction},
   author={Wang, Xiean and Chen, Pin and Tan, Liqin and Lu, Yutong and Zou, Qingsong},
-  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  booktitle={The Fortieth AAAI Conference on Artificial Intelligence},
   year={2026}
 }
 ```
