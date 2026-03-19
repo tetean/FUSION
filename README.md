@@ -10,7 +10,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;
 [![Static Badge](https://img.shields.io/badge/2026-AAAI?style=for-the-badge&label=AAAI&labelColor=purple&color=gray)](https://aaai.org/conference/aaai/aaai-26/)
 &nbsp;&nbsp;&nbsp;&nbsp;
-[![Static Badge](https://img.shields.io/badge/PAPER-red?style=for-the-badge&labelColor=blue)]()
+[![Static Badge](https://img.shields.io/badge/PAPER-red?style=for-the-badge&labelColor=blue)](https://ojs.aaai.org/index.php/AAAI/article/view/39863)
 
 </h4>
 
